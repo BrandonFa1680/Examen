@@ -59,12 +59,7 @@ void diaSemana()
 }
 int sumaNaturales()
 {
-    int suma = 0;
-    for (int i = 0; i <= 100; i++)
-    {
-        suma += i;
-    }
-    return suma;
+    return Enumerable.Range(0, 101).Sum();
 }
 void enumerado()
 {
@@ -106,14 +101,14 @@ int opcion = 0;
 do
 {
     Console.WriteLine("Escoge una opción ");
-    Console.WriteLine("1");
-    Console.WriteLine("2");
-    Console.WriteLine("3");
-    Console.WriteLine("4");
-    Console.WriteLine("5");
-    Console.WriteLine("6");
-    Console.WriteLine("7");
-    Console.WriteLine("8");
+    Console.WriteLine("1. Ingresar un número");
+    Console.WriteLine("2. Día de la semana");
+    Console.WriteLine("3. Suma de los números naturales del 0 al 100");
+    Console.WriteLine("4. Enumerar hasta un número");
+    Console.WriteLine("5. Calcular área de un círculo");
+    Console.WriteLine("6. Mostrar elementos de la lista");
+    Console.WriteLine("7. Mostrar nombres de la lista");
+    Console.WriteLine("8. Salir del menú");
     opcion = Convert.ToInt32(Console.ReadLine());
     switch (opcion)
     {
