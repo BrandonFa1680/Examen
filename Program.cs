@@ -1,141 +1,110 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using CodigoClase15.Clases;
+
+List<EmpleadoBase> empleados = new List<EmpleadoBase>();
+
+Gerente gerente = new Gerente
+{
+    IdEmpleado = 1,
+    Nombre = "Alberto",
+    Puesto = "gerente"
+};
+
+Desarrollador desarrollador = new Desarrollador
+{
+    IdEmpleado = 2,
+    Nombre = "Franco",
+    Puesto = "desarrollador"
+};
+
+GerenteRRHH rrhh = new GerenteRRHH
+{
+    IdEmpleado = 3,
+    Nombre = "Diego",
+    Puesto = "gerente RRHH"
+};
+
+ConsultorExterno consultor = new ConsultorExterno
+{
+    IdEmpleado = 4,
+    Nombre = "Jose",
+    Puesto = "Electricista"
+};
+
+empleados.Add(gerente);
+empleados.Add(desarrollador);
+empleados.Add(rrhh);
+empleados.Add(consultor);
 
 
-/*void mostrarTexto()
-{
-    Console.WriteLine("Primer commit");
-}*/
+Empresa empresa = new Empresa(empleados);
 
-int numero()
+void IngresarEmpleado(Empresa empresa)
 {
-    Console.WriteLine("Ingrese un numero");
-    int numero = Convert.ToInt32(Console.ReadLine());
-    if (numero > 0)
+    Console.WriteLine("Seleccione el tipo de empleado a ingresar:");
+    Console.WriteLine("1. Gerente");
+    Console.WriteLine("2. Gerente de RRHH");
+    Console.WriteLine("3. Desarrollador");
+    Console.WriteLine("4. Consultor Externo");
+    int tipoEmpleado = Convert.ToInt32(Console.ReadLine());
+
+    EmpleadoBase nuevoEmpleado = null;
+
+    switch (tipoEmpleado)
     {
-        Console.WriteLine("Es positivo");
-        return numero;
-    }
-    else if (numero < 0)
-    {
-        Console.WriteLine("Es negativo");
-        return numero;
-    }
-    else 
-    {
-        Console.WriteLine("Es cero");
-        return numero;
-    }
-}
-void diaSemana()
-{
-    Console.WriteLine("Escribe un día");
-    string dia = Console.ReadLine().ToUpper();
-  
-    switch (dia)
-    {
-        case "LUNES":
-            Console.WriteLine("Hoy es Lunes");
+        case 1:
+            nuevoEmpleado = new Gerente();
             break;
-        case "MARTES":
-            Console.WriteLine("Hoy es Lunes");
+        case 2:
+            nuevoEmpleado = new GerenteRRHH();
             break;
-        case "MIERCOLES":
-            Console.WriteLine("Hoy es Lunes");
+        case 3:
+            nuevoEmpleado = new Desarrollador();
             break;
-        case "JUEVES":
-            Console.WriteLine("Hoy es Lunes");
-            break;
-        case "VIERNES":
-            Console.WriteLine("Hoy es Lunes");
-            break;
-        case "SABADO":
-            Console.WriteLine("Hoy es Lunes");
+        case 4:
+            nuevoEmpleado = new ConsultorExterno();
             break;
         default:
-            Console.WriteLine("Hoy es Lunes");
-            break;
+            Console.WriteLine("Tipo de empleado no válido. Inténtelo de nuevo.");
+            return;
     }
-}
-int sumaNaturales()
-{
-    return Enumerable.Range(0, 101).Sum();
-}
-void enumerado()
-{
-    Console.WriteLine("Ingresa un limite");
-    int numero = Convert.ToInt32(Console.ReadLine());
 
-    for (int i = 1;i <= numero; i++)
-    {
-        Console.WriteLine(i);
-    }
+    Console.Write("Ingrese el ID del empleado: ");
+    nuevoEmpleado.IdEmpleado = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Ingrese el nombre del empleado: ");
+    nuevoEmpleado.Nombre = Console.ReadLine();
+
+    Console.Write("Ingrese el puesto del empleado: ");
+    nuevoEmpleado.Puesto = Console.ReadLine();
+
+    empresa.AgregarEmpleado(nuevoEmpleado);
 }
-double areaCirculo()
-{
-    Console.WriteLine("Ingresa un valor para el radio");
-    double radio = Convert.ToDouble(Console.ReadLine());
-    double area = Math.Pow(radio, 2)*Math.PI;
-    return area;
-}
-void listar(string[] arr)
-{
-    Console.WriteLine("Los elementos de la lista son :");
-    foreach (string item in arr)
-    {
-        Console.WriteLine(item);
-    }
-}
-string[] lista = { "gato", "perro", "conejo", "loro" };
-void listarNombres(List<string> arr)
-{
-    Console.WriteLine("Los nombres de la lista son :");
-    foreach (var item in arr)
-    {
-        Console.WriteLine(item);
-    }
-}
-List<string> listaNombres = new List<string> { "Juan", "María", "Pedro", "Ana", "Luis" };
 
 int opcion = 0;
 do
 {
-    Console.WriteLine("Escoge una opción ");
-    Console.WriteLine("1. Ingresar un número");
-    Console.WriteLine("2. Día de la semana");
-    Console.WriteLine("3. Suma de los números naturales del 0 al 100");
-    Console.WriteLine("4. Enumerar hasta un número");
-    Console.WriteLine("5. Calcular área de un círculo");
-    Console.WriteLine("6. Mostrar elementos de la lista");
-    Console.WriteLine("7. Mostrar nombres de la lista");
-    Console.WriteLine("8. Salir del menú");
+    Console.WriteLine("Bienvenido");
+    Console.WriteLine("Elige alguna de las opciones del menú");
+    Console.WriteLine("1.Ingresar empleado");
+    Console.WriteLine("2. Mostrar Listado de empleados");
+    Console.WriteLine("3. Salir");
+
     opcion = Convert.ToInt32(Console.ReadLine());
+
     switch (opcion)
     {
         case 1:
-            numero();
+            IngresarEmpleado(empresa);
             break;
         case 2:
-            diaSemana();
+            empresa.MostrarListadoEmpleados();
             break;
         case 3:
-            Console.WriteLine(sumaNaturales());
+            Console.WriteLine("Saliendo del programa...");
             break;
-        case 4:
-            enumerado();
-            break;
-        case 5:
-            Console.WriteLine(areaCirculo());
-            break;
-        case 6:
-            listar(lista);
-            break;
-        case 7:
-            listarNombres(listaNombres);
-            break;
-        case 8:
-            Console.WriteLine("Usted salio del menú");
+        default:
+            Console.WriteLine("Opción inválida. Inténtelo de nuevo.");
             break;
     }
-
-} while (opcion != 8);
+} while (opcion != 3);
